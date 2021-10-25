@@ -21,7 +21,18 @@ class App extends React.Component {
     await axios.post(`${API_SERVER}/items`, item);
     this.getItems();
   }
-
+  
+  deleteItem= async(id)=>{
+    await axios.delete(`${API_SERVER}/items/`,{_id:id})
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+  
+        const item = this.state.items.filter(item => item.name !== id);
+        this.setState({ item });
+      })
+  
+  }
   getItems = async () => {
     const response = await axios.get(`${API_SERVER}/items`);
     const items = response.data;
