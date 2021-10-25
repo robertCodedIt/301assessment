@@ -23,7 +23,7 @@ class App extends React.Component {
   }
   
   deleteItem= async(id)=>{
-    await axios.delete(`${API_SERVER}/items/`,{_id:id})
+    await axios.delete(`${API_SERVER}/items/`,{params:{_id:id}})
       .then(res => {
         console.log(res);
         console.log(res.data);
