@@ -22,17 +22,22 @@ class App extends React.Component {
     this.getItems();
   }
   
-  deleteItem= async(id)=>{
-    await axios.delete(`${API_SERVER}/items/`,{params:{_id:id}})
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
+  // deleteItem= async(id)=>{
+  //   await axios.delete(`${API_SERVER}/items/`,{params:{_id:id}})
+  //     .then(res => {
+  //       console.log(res.json(i));
+      
   
-        const item = this.state.items.filter(item => item._id !== id);
-        this.setState({ item });
-      })
+  //       const item = this.state.items.filter(item => item._id !== id);
+  //       this.setState({ item });
+  //     })
   
-  }
+  // }
+deleteItem = async (id)=>{  await axios.delete(`${API_SERVER}/items/${id}`, (req,) => {
+    id = parseFloat(req.params.id);
+  const items = this.state.items.filter(item => item._id !== id);
+  this.setState({ items });
+  })}
   getItems = async () => {
     const response = await axios.get(`${API_SERVER}/items`);
     const items = response.data;
@@ -58,7 +63,7 @@ class App extends React.Component {
               <Form handleAddItem={this.addItem} />
             </Col>
             <Col>
-              <Items itemsList={this.state.items} />
+              <Items itemsList={this.state.items} delete = {this.deleteItem} />
             </Col>
           </Row>
         </Container>
