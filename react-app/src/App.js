@@ -28,7 +28,7 @@ class App extends React.Component {
         console.log(res);
         console.log(res.data);
   
-        const item = this.state.items.filter(item => item.name !== id);
+        const item = this.state.items.filter(item => item._id !== id);
         this.setState({ item });
       })
   
